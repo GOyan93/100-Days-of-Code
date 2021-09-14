@@ -1,9 +1,11 @@
+from turtle import Turtle
 import turtle as t
 MOVE_DISTANCE = 20
 
 
-class Snake:
+class Snake(Turtle):
     def __init__(self):
+        super().__init__()
         self.snake = []
         self.create_snake()
         self.head = self.snake[0]
@@ -12,11 +14,12 @@ class Snake:
     def create_snake(self):
         for index in range(0, 4):
             snake_piece = t.Turtle()
+            x_pos = (index * 20) * (-1)
+            snake_piece.setx(x_pos)
+            snake_piece.sety(0)
             snake_piece.shape("square")
             snake_piece.color("white")
             snake_piece.penup()
-            x_pos = (index * 20) * (-1)
-            snake_piece.setx(x_pos)
             self.snake.append(snake_piece)
 
     def move(self):
@@ -72,5 +75,12 @@ class Snake:
     def detect_tail_collision(self):
         if self.head.pos() in self.get_tail_pos():
             return False
+
+    def reset_snake(self):
+        self.clear()
+        self.snake = []
+        self.create_snake()
+        self.head = self.snake[0]
+        self.tail = self.snake[1:]
 
 
