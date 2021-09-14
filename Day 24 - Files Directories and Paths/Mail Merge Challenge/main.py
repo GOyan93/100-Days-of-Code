@@ -6,3 +6,15 @@
 #Hint1: This method will help you: https://www.w3schools.com/python/ref_file_readlines.asp
     #Hint2: This method will also help you: https://www.w3schools.com/python/ref_string_replace.asp
         #Hint3: THis method will help you: https://www.w3schools.com/python/ref_string_strip.asp
+
+with open("Input/Letters/starting_letter.txt", mode= "r") as example:
+    template = example.read()
+
+with open("Input/Names/invited_names.txt", mode= "r") as name_list:
+    names = name_list.read()
+
+
+
+for name in names:
+    with open(f"Output/ReadyToSend/{name}'s_letter.txt", mode= "r") as custom_letter:
+
