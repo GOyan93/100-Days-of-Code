@@ -61,7 +61,6 @@ def main_game_loop():
             if score.score > score.highscore:
                 score.update_highscore()
             score.game_over()
-            snake_1.snake.clear()
             time.sleep(1)
             snake_1.reset_snake()
             score.reset_score()

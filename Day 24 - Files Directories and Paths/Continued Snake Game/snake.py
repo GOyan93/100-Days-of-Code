@@ -77,6 +77,8 @@ class Snake(Turtle):
             return False
 
     def reset_snake(self):
+        for segment in self.snake:
+            segment.goto(10000, 10000)
         self.snake.clear()
         self.snake = []
         self.create_snake()
