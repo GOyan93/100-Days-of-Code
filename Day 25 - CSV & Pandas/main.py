@@ -19,6 +19,17 @@
 #
 # print(temperatures)
 import pandas
+import numpy
 
 df = pandas.read_csv("weather_data.csv")
-print(df['temp'])
+# temp_data = df['temp']
+# max_temp = temp_data.max()
+# print(df[df.temp == max_temp])
+
+Monday = df[df.day == "Monday"]
+monday_temp_c = Monday["temp"]
+
+def temp_convert(temperature):
+    return (9 / 5) * temperature + 32
+
+print(temp_convert(monday_temp_c))
