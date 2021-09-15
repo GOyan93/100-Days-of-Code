@@ -8,6 +8,5 @@ import pandas as pd
 df = pd.read_csv("2018_Central_Park_Squirrel_Census_-_Squirrel_Data.csv")
 print(df.info())
 color = df["Primary Fur Color"]
-# color.unique().to_list()
-df.groupby(df["Primary Fur Color"])
-print(df)
+new_df = color.value_counts()
+new_df.to_csv("new_data.csv")
