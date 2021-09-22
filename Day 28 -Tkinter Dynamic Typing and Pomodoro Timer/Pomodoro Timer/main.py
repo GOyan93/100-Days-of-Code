@@ -27,7 +27,7 @@ def start_timer():
         label_timer_title.config(text="Break", fg= RED)
     elif reps % 2 == 0:
         count_down(short_break_sec)
-        label_timer_title.config(text="Break", fg=RED)
+        label_timer_title.config(text="Break", fg=PINK)
     else:
         count_down(work_sec)
         label_timer_title.config(text="Work", fg=GREEN)
@@ -48,6 +48,12 @@ def count_down(count):
 
     if count == 0:
         start_timer()
+        marks = ""
+        work_sessions = math.floor(reps / 2)
+        for i in range(work_sessions):
+            marks += "✔"
+            label_checkmark.config(text = marks)
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -61,7 +67,7 @@ window.config(padx= 100, pady= 50, bg= YELLOW)
 label_timer_title = Label(text= "Timer", fg= GREEN, bg= YELLOW, font=(FONT_NAME, 50, "bold"))
 button_start = Button(text= "Start", font=(FONT_NAME, 10), highlightthickness= 0, command= start_timer)
 button_reset = Button(text= "Reset", font=(FONT_NAME, 10), highlightthickness= 0)
-label_checkmark = Label(text= "✔", fg= GREEN, bg= YELLOW)
+label_checkmark = Label(text="", fg=GREEN, bg=YELLOW)
 
 canvas = Canvas(width= 200, height= 224, bg= YELLOW, highlightthickness= 0)
 tomato_png = PhotoImage(file= "tomato.png")
@@ -73,7 +79,7 @@ timer_text = canvas.create_text(100, 130, text= "00:00", fill= "white", font=(FO
 label_timer_title.grid(row= 0, column= 1)
 canvas.grid(row= 1, column= 1)
 button_start.grid(row= 2, column= 0)
-label_checkmark.grid(row= 3, column= 1)
+label_checkmark.grid(row=3, column=1)
 button_reset.grid(row =2, column= 2)
 
 
