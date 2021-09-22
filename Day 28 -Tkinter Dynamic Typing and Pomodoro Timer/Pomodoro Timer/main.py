@@ -10,8 +10,18 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 reps = 0
-
+timer = None
+marks = None
 # ---------------------------- TIMER RESET ------------------------------- # 
+
+def reset_timer():
+    global timer, marks, reps
+    window.after_cancel(timer)
+    label_timer_title.config(text= "Timer", fg=GREEN)
+    marks = ""
+    reps = 0
+    canvas.itemconfig(timer_text, text="00:00")
+
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
@@ -36,7 +46,7 @@ def start_timer():
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
 def count_down(count):
-    global reps
+    global reps, timer, marks
     count_min = math.floor(count / 60)
     count_sec = count % 60
     if count_sec < 10:
@@ -44,7 +54,7 @@ def count_down(count):
 
     canvas.itemconfig(timer_text, text= f"{count_min}:{count_sec}")
     if count > 0:
-        window.after(2, count_down, count-1)
+        timer = window.after(1000, count_down, count-1)
 
     if count == 0:
         start_timer()
@@ -66,7 +76,7 @@ window.config(padx= 100, pady= 50, bg= YELLOW)
 # Create Widgets
 label_timer_title = Label(text= "Timer", fg= GREEN, bg= YELLOW, font=(FONT_NAME, 50, "bold"))
 button_start = Button(text= "Start", font=(FONT_NAME, 10), highlightthickness= 0, command= start_timer)
-button_reset = Button(text= "Reset", font=(FONT_NAME, 10), highlightthickness= 0)
+button_reset = Button(text= "Reset", font=(FONT_NAME, 10), highlightthickness= 0, command= reset_timer)
 label_checkmark = Label(text="", fg=GREEN, bg=YELLOW)
 
 canvas = Canvas(width= 200, height= 224, bg= YELLOW, highlightthickness= 0)
