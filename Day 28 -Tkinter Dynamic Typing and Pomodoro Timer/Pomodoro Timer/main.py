@@ -1,5 +1,5 @@
 from tkinter import *
-
+import math
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
 RED = "#e7305b"
@@ -14,23 +14,36 @@ LONG_BREAK_MIN = 20
 
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+def start_timer():
+    count_down(WORK_MIN * 60)
 
+# ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
+def count_down(count):
+
+    count_min = math.floor(count / 60)
+    count_sec = count % 60
+
+    canvas.itemconfig(timer_text, text= f"{count_min}:{count_sec}")
+    if count > 0:
+        window.after(1000, count_down, count-1)
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Pomodoro")
 window.config(padx= 100, pady= 50, bg= YELLOW)
 
+
+
+
 # Create Widgets
 label_timer_title = Label(text= "Timer", fg= GREEN, bg= YELLOW, font=(FONT_NAME, 50, "bold"))
-button_start = Button(text= "Start", font=(FONT_NAME, 10), highlightthickness= 0)
+button_start = Button(text= "Start", font=(FONT_NAME, 10), highlightthickness= 0, command= start_timer)
 button_reset = Button(text= "Reset", font=(FONT_NAME, 10), highlightthickness= 0)
 label_checkmark = Label(text= "✔", fg= GREEN, bg= YELLOW)
 
 canvas = Canvas(width= 200, height= 224, bg= YELLOW, highlightthickness= 0)
 tomato_png = PhotoImage(file= "tomato.png")
 canvas.create_image(100, 112, image= tomato_png)
-canvas.create_text(100, 130, text= "00:00", fill= "white", font=(FONT_NAME, 35, "bold"))
+timer_text = canvas.create_text(100, 130, text= "00:00", fill= "white", font=(FONT_NAME, 35, "bold"))
 
 
 # Layout of Widgets
