@@ -10,6 +10,7 @@ def save():
         txt_file.write(f"{user_website} | {user_email} | {user_password}\n")
     entry_website.delete(0, END)
     entry_email.delete(0, END)
+    entry_email.insert("example@email.com")
     entry_password.delete(0, END)
 
 
