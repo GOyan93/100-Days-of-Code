@@ -3,14 +3,14 @@
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
     global entry_website, entry_email, entry_password
-    user_website = entry_website.get()
-    user_email = entry_email.get()
-    user_password = entry_password.get()
+    user_website = str(entry_website.get())
+    user_email = str(entry_email.get())
+    user_password = str(entry_password.get())
     with open("data.txt.", mode="a") as txt_file:
         txt_file.write(f"{user_website} | {user_email} | {user_password}\n")
     entry_website.delete(0, END)
     entry_email.delete(0, END)
-    entry_email.insert("example@email.com")
+    entry_email.insert(0, "example@email.com")
     entry_password.delete(0, END)
 
 
