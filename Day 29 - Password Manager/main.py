@@ -1,3 +1,4 @@
+from tkinter import *
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
@@ -9,18 +10,15 @@ def save():
     with open("data.txt.", mode="a") as txt_file:
         txt_file.write(f"{user_website} | {user_email} | {user_password}\n")
     entry_website.delete(0, END)
-    entry_email.delete(0, END)
-    entry_email.insert(0, "example@email.com")
     entry_password.delete(0, END)
 
 
 
 
 # ---------------------------- UI SETUP ------------------------------- #
-from tkinter import *
+
 
 window = Tk()
-#window.minsize(200, 200)
 window.config(padx= 50, pady= 20)
 window.title("Password Manager")
 lock_img = PhotoImage(file= "logo.png")
