@@ -57,8 +57,22 @@ def save():
                 entry_website.delete(0, END)
                 entry_password.delete(0, END)
 
-def search():
-    pass
+def find_password():
+    try:
+        with open("data.json", "r") as data_file:
+            data = json.load(data_file)
+            website_key = entry_website.get()
+            website_password = data[website_key]["password"]
+    except FileNotFoundError:
+        messagebox.showinfo(title= "Oops", message= "There are no passwords saved.")
+
+    except KeyError as website:
+        messagebox.showinfo(title= "Oops", message= f"No details for {website} exist.")
+    else:
+        messagebox.showinfo(title= f"{website_key}", message=f"Website: {website_key} \nPassword: {website_password}")
+    finally:
+        entry_website.delete(0, END)
+        entry_password.delete(0, END)
 # ---------------------------- UI SETUP ------------------------------- #
 
 
@@ -76,7 +90,7 @@ label_password = Label(text= "Password:")
 entry_website = Entry(width= 21, justify="left")
 entry_email = Entry(width= 35, justify="left")
 entry_password = Entry(width= 21, justify="left")
-button_search = Button(text= "Search", command= search)
+button_search = Button(text= "Search", command= find_password)
 button_add = Button(text= "Add", width= 36, justify= "left", command= save)
 button_generate = Button(text= "Generate Password", command= generate)
 
