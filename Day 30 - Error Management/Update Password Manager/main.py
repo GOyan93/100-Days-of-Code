@@ -7,7 +7,7 @@ import json
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 #Password Generator Project
-def generate_password():
+def generate():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
@@ -20,15 +20,15 @@ def generate_password():
     shuffle(password_list)
 
     password = "".join(password_list)
-    password_entry.insert(0, password)
+    entry_password.insert(0, password)
     #pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
 
-    website = website_entry.get()
-    email = email_entry.get()
-    password = password_entry.get()
+    website = entry_website.get()
+    email = entry_email.get()
+    password = entry_password.get()
     new_data = {
         website: {
             "email": email,
@@ -54,47 +54,47 @@ def save():
                 with open("data.json", "w") as data_file:
                     json.dump(data, data_file, indent= 4)
             finally:
-                website_entry.delete(0, END)
-                password_entry.delete(0, END)
+                entry_website.delete(0, END)
+                entry_password.delete(0, END)
 
 def search():
     pass
 # ---------------------------- UI SETUP ------------------------------- #
 
+
 window = Tk()
+window.config(padx= 50, pady= 20)
 window.title("Password Manager")
-window.config(padx=50, pady=50)
+lock_img = PhotoImage(file= "logo.png")
+canvas = Canvas(height= 200, width = 200)
+canvas.create_image(100, 100, image=lock_img)
 
-canvas = Canvas(height=200, width=200)
-logo_img = PhotoImage(file="logo.png")
-canvas.create_image(100, 100, image=logo_img)
-canvas.grid(row=0, column=1)
+# Widget Creation
+label_website = Label(text= "Website:")
+label_email = Label(text= "Email/ Username:")
+label_password = Label(text= "Password:")
+entry_website = Entry(width= 21, justify="left")
+entry_email = Entry(width= 35, justify="left")
+entry_password = Entry(width= 21, justify="left")
+button_search = Button(text= "Search", command= search)
+button_add = Button(text= "Add", width= 36, justify= "left", command= save)
+button_generate = Button(text= "Generate Password", command= generate)
 
-#Labels
-website_label = Label(text="Website:")
-website_label.grid(row=1, column=0)
-email_label = Label(text="Email/Username:")
-email_label.grid(row=2, column=0)
-password_label = Label(text="Password:")
-password_label.grid(row=3, column=0)
 
-#Entries
-website_entry = Entry(width=21)
-website_entry.grid(row=1, column=1, columnspan=2)
-website_entry.focus()
-email_entry = Entry(width=35)
-email_entry.grid(row=2, column=1, columnspan=2)
-email_entry.insert(0, "angela@gmail.com")
-password_entry = Entry(width=21)
-password_entry.grid(row=3, column=1)
-
-# Buttons
-search_button = Button(text="Search", command=search)
-search_button.grid(row=1, column=2)
-generate_password_button = Button(text="Generate Password", command=generate_password)
-generate_password_button.grid(row=3, column=2)
-add_button = Button(text="Add", width=36, command=save)
-add_button.grid(row=4, column=1, columnspan=2)
+# Widget Layout
+canvas.grid(row= 0, column= 1)
+entry_website.grid(row=1, column= 1, columnspan= 1, ipadx= 35)
+entry_website.focus()
+entry_email.grid(row=2, column= 1, columnspan= 2, ipadx= 50)
+entry_email.insert(0, "example@email.com")
+entry_password.grid(row=3, column= 1, ipadx= 35)
+label_website.grid(row= 1, column= 0)
+label_email.grid(row= 2, column= 0)
+label_password.grid(row= 3, column= 0)
+button_search.grid(row=1, column= 2, ipadx= 33)
+button_add.grid(row=4, column= 1, columnspan= 2, ipadx= 28)
+button_add.grid(row=4, column= 1, columnspan= 2, ipadx= 28)
+button_generate.grid(row=3, column= 2)
 
 
 window.mainloop()
